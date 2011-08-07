@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!ELEMENT character    (info,weights,additional_constraint*,items)>
+<!ELEMENT info         (name?,realm?,region?,base)>
+<!ATTLIST info         load (true|false) "false">
+<!ELEMENT name         (#PCDATA)>
+<!ELEMENT realm        (#PCDATA)>
+<!ELEMENT region       (#PCDATA)>
+<!ELEMENT base         ((strength|intellect|agility|stamina|resilience|hps|dps|spirit|haste|mastery|critical|hit|expertise|parry|mana|dodge|spell_penetration|spell_power|damage|attack_power|block|armor|ranged_attack_power)*)>
+<!ELEMENT weights      ((strength|intellect|agility|stamina|resilience|hps|dps|spirit|haste|mastery|critical|hit|expertise|parry|mana|dodge|spell_penetration|spell_power|damage|attack_power|block|armor|ranged_attack_power)*)>
+<!ELEMENT additional_constraint (#PCDATA)>
+<!ATTLIST additional_constraint file CDATA #IMPLIED>
+<!ELEMENT items        (item*)>
+<!ELEMENT item         (#PCDATA)>
+
+<!ELEMENT strength (#PCDATA)>
+<!ELEMENT intellect (#PCDATA)>
+<!ELEMENT agility (#PCDATA)>
+<!ELEMENT stamina (#PCDATA)>
+<!ELEMENT resilience (#PCDATA)>
+<!ELEMENT hps (#PCDATA)>
+<!ELEMENT dps (#PCDATA)>
+<!ELEMENT spirit (#PCDATA)>
+<!ELEMENT haste (#PCDATA)>
+<!ELEMENT mastery (#PCDATA)>
+<!ELEMENT critical (#PCDATA)>
+<!ELEMENT hit (#PCDATA)>
+<!ELEMENT expertise (#PCDATA)>
+<!ELEMENT parry (#PCDATA)>
+<!ELEMENT mana (#PCDATA)>
+<!ELEMENT dodge (#PCDATA)>
+<!ELEMENT spell_penetration (#PCDATA)>
+<!ELEMENT spell_power (#PCDATA)>
+<!ELEMENT damage (#PCDATA)>
+<!ELEMENT attack_power (#PCDATA)>
+<!ELEMENT block (#PCDATA)>
+<!ELEMENT armor (#PCDATA)>
+<!ELEMENT ranged_attack_power (#PCDATA)>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE character SYSTEM "character.dtd">
+<character>
+  <!-- Character information. If load is set to true then all currently
+       equipped items will be added to the model.
+    -->
+  <info load="true">
+    <name>Ecdab</name> <!-- Ignored unless load = true -->
+    <realm>Alonsus</realm> <!-- Ignored unless load = true -->
+    <region>eu</region> <!-- Ignored unless load = true -->
+
+    <!-- Character base stats at level 85 -->
+    <base>
+      <intellect>39</intellect>
+      <stamina>203</stamina>
+      <strength>186</strength>
+      <agility>123</agility>
+      <spirit>63</spirit>
+    </base>
+  </info>
+
+  <!-- The weights of each stat in the objective function, to be
+       maximised, in the solver. Terms in the objective function
+       are:
+           * strength
+           * intellect
+           * agility
+           * stamina
+           * resilience
+           * hps
+           * dps
+           * spirit
+           * haste
+           * mastery
+           * critical
+           * hit
+           * expertise
+           * parry
+           * mana
+           * dodge
+           * spell_penetration
+           * spell_power
+           * damage
+           * attack_power
+           * ranged_attack_power
+           * block
+           * armor
+       If one or more attributes are omitted they default to epsilon (close to
+       zero).
+    -->
+  <weights>
+    <strength>0.284</strength>
+    <stamina>0.65</stamina>
+    <armor>0.153</armor>
+    <parry>1</parry>
+    <dodge>1</dodge>
+    <mastery>1.2</mastery>
+    <expertise>0.4</expertise>
+    <hit>0.2</hit>
+  </weights>
+
+  <!-- Any additional constraints that one might want to add
+       to the model. A constraint is written in Python with
+       *full* access to all internal states of the solver.
+
+       Note that you need to follow all standard coding
+       conventions, such as line indention, when writing
+       the Python code. The only help the solver provides is
+       that is strip all whitespace from the end of your
+       constraint.
+    -->
+  <additional_constraint file="constraints/meta_2x_yellow.py" />
+  <additional_constraint file="constraints/bonus_4percent_parry.py" />
+  <additional_constraint file="constraints/bonus_27percent_str_parry.py" />
+  <additional_constraint>
+<![CDATA[
+problem += self.penalty >= 2 * self.total_stats[I['parry']] - 2 * self.total_stats[I['dodge']]
+problem += self.penalty >= 2 * self.total_stats[I['dodge']] - 2 * self.total_stats[I['parry']]
+]]>
+</additional_constraint>
+
+  <!-- Any items (by ID) one wish to add to the model. -->
+  <items>
+  </items>
+</character>

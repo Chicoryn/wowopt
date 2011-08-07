@@ -1,0 +1,194 @@
+<character>
+  <!-- Character information. If load is set to true then all currently
+       equipped items will be added to the model.
+    -->
+  <info load="false">
+    <name></name> <!-- Ignored unless load = true -->
+    <realm></realm> <!-- Ignored unless load = true -->
+    <region></region> <!-- Ignored unless load = true -->
+
+    <!-- Character base stats at level 85 -->
+    <base>
+      <intellect>199</intellect>
+      <stamina>71</stamina>
+      <strength>46</strength>
+      <agility>54</agility>
+      <spirit>203</spirit>
+    </base>
+  </info>
+
+  <!-- The weights of each stat in the objective function, to be
+       maximised, in the solver. Terms in the objective function
+       are:
+           * strength
+           * intellect
+           * agility
+           * stamina
+           * resilience
+           * hps
+           * dps
+           * spirit
+           * haste
+           * mastery
+           * critical
+           * hit
+           * expertise
+           * parry
+           * mana
+           * dodge
+           * spell_penetration
+           * spell_lower
+           * damage
+           * attack_power
+           * block
+           * armor
+       If one or more attributes are omitted they default to zero.
+    -->
+  <weights>
+    <intellect>2.8820</intellect> <!-- 3.48 / (1.15 * 1.05) -->
+    <spirit>2.0971</spirit> <!-- 2.16 / 1.03 -->
+    <haste>0</haste>
+    <mastery>1.81</mastery>
+    <critical>1.61</critical>
+    <spell_power>1.76</spell_power>
+    <hps>1</hps>
+  </weights>
+
+  <!-- Any additional constraints that one might want to add
+       to the model. A constraint is written in Python with
+       *full* access to all internal states of the solver.
+
+       Note that you need to follow all standard coding
+       conventions, such as line indention, when writing
+       the Python code. The only help the solver provides is
+       that is strip all whitespace from the end of your
+       constraint.
+    -->
+  <additional_constraint file="constraints/meta_54_int.py" />
+  <additional_constraint file="constraints/meta_2x_yellow.py" />
+  <additional_constraint file="constraints/t12_set_bonus.py" />
+  <additional_constraint file="constraints/bonus_5percent_int.py" />
+  <additional_constraint file="constraints/bonus_15percent_int.py" />
+  <additional_constraint file="constraints/bonus_3percent_spirit.py" />
+  <additional_constraint>
+<![CDATA[
+problem += self.total_stats[I['haste']] >= 517 # 3/3 darkness
+# problem += self.total_stats[I['haste']] >= 646 # 2/3 darkness
+# problem += self.total_stats[I['haste']] >= 780 # 1/3 darkness
+# problem += self.total_stats[I['haste']] >= 915 # 0/3 darkness
+]]>
+  </additional_constraint>
+
+  <!-- Any items (by ID) one wish to add to the model. -->
+  <items>
+    <!-- Head -->
+    <item>65020</item> <!-- Crown of Burning Water (heroic) -->
+    <item>71272</item> <!-- Cowl of the Cleansing Flame -->
+    <item>71528</item> <!-- Cowl of the Cleansing Flame (heroic) -->
+    <item>71533</item> <!-- Hood of the Cleansing Flame (heroic) -->
+    <item>71277</item> <!-- Hood of the Cleansing Flame -->
+
+    <!-- Neck -->
+    <item>71214</item> <!-- Firemind Pendant -->
+    <item>71423</item> <!-- Heartstone of Rhyolith (heroic) -->
+    <item>71012</item> <!-- Heartstone of Rhyolith -->
+    <item>71472</item> <!-- Flowform Choker (heroic) -->
+    <item>71348</item> <!-- Flowform Choker -->
+
+    <!-- Shoulder -->
+    <item>71531</item> <!-- Mantle of the Cleansing Flame (heroic) -->
+    <item>71275</item> <!-- Mantle of the Cleansing Flame -->
+    <item>71536</item> <!-- Shoulderwraps of the Cleansing Flame (heroic) -->
+    <item>71280</item> <!-- Shoulderwraps of the Cleansing Flame -->
+    <item>71471</item> <!-- Mantle of Closed Doors (heroic) -->
+    <item>71343</item> <!-- Mantle of Closed Doors -->
+
+    <!-- Chest -->
+    <item>71530</item> <!-- Robes of the Cleansing Flame (heroic) -->
+    <item>71274</item> <!-- Robes of the Cleansing Frame -->
+    <item>71535</item> <!-- Vestment of the Cleansing Flame (heroic) -->
+    <item>71279</item> <!-- Ventment of the Cleansing Flame -->
+    <item>71407</item> <!-- Robes of Smoldering Destruction (heroic) -->
+    <item>71041</item> <!-- Robes of Smoldering Destruction -->
+
+    <!-- Waist -->
+    <item>71613</item> <!-- Majordomo's Chain of Office (heroic) -->
+    <item>71357</item> <!-- Majordomo's Chain of Office -->
+    <item>71258</item> <!-- Embereye Belt -->
+    <item>70368</item> <!-- Ruthless Gladiator's Cord of Meditation -->
+
+    <!-- Legs -->
+    <item>71529</item> <!-- Legswraps of the Cleansing Flame (heroic) -->
+    <item>71273</item> <!-- Legswraps of the Cleansing Flame -->
+    <item>71534</item> <!-- Leggings of the Cleansing Flame (heroic) -->
+    <item>71278</item> <!-- Leggings of the Cleansing Flame -->
+    <item>71435</item> <!-- Leggings of Billowing Flame (heroic) -->
+    <item>70989</item> <!-- Leggings of Billowing Flame -->
+
+    <!-- Feet -->
+    <item>69953</item> <!-- Endless Dream Walker -->
+    <item>71447</item> <!-- Coalwalker Sandals (heroic) -->
+    <item>71023</item> <!-- Coalwalker Sandals -->
+    <item>70367</item> <!-- Ruthless Gladiator's Threads of Meditation -->
+
+    <!-- Wrist -->
+    <item>60238</item> <!-- Bracers of the Dark Mother (heroic) -->
+    <item>71266</item> <!-- Firesoul Wristguards -->
+    <item>71471</item> <!-- Wristwraps of Arrogant Doom (heroic) -->
+    <item>71350</item> <!-- Wristwraps of Arrogant Doom -->
+
+    <!-- Hand -->
+    <item>71532</item> <!-- Gloves of the Cleansing Flame (heroic) -->
+    <item>71276</item> <!-- Gloves of the Cleansing Flame -->
+    <item>71527</item> <!-- Handwraps of the Cleansing Flame (heroic) -->
+    <item>71271</item> <!-- Handwraps of the Cleansing Flame -->
+    <item>71614</item> <!-- Fingers of Incineration (heroic) -->
+    <item>71358</item> <!-- Fingers of Incineration -->
+    <item>69944</item> <!-- Grips of Altered Reality -->
+
+    <!-- Finger -->
+    <item>71237</item> <!-- Quicksilver Signet of the Avengers -->
+    <item>71211</item> <!-- Soothing Brimstone Circle -->
+    <item>71449</item> <!-- Crystal Prison Band (heroic) -->
+    <item>71024</item> <!-- Crystal Prison Band -->
+
+    <!-- Trinket -->
+    <item>60233</item> <!-- Shard of Woe -->
+    <item>65124</item> <!-- Fall of Mortality -->
+    <item>69000</item> <!-- Fiery Quintessence -->
+    <item>69149</item> <!-- Eye of Blazing Power (heroic) -->
+    <item>68983</item> <!-- Eye of Blazing Power -->
+    <item>69111</item> <!-- Jaws of Defeat (heroic) -->
+    <item>68926</item> <!-- Jaws of Defeat -->
+
+    <!-- Back -->
+    <item>65108</item> <!-- Drape of the Twins (heroic) -->
+    <item>60232</item> <!-- Shroud of Endless Grief (heroic) -->
+    <item>71229</item> <!-- Flowing Flamewrath Cloak -->
+    <item>71270</item> <!-- Mantle of Patience -->
+    <item>71434</item> <!-- Wings of Flame (heroic) -->
+    <item>70990</item> <!-- Wings of Flame -->
+
+    <!-- Main-Hand -->
+    <item>71615</item> <!-- Ko'gun, Hammer of the Firelord (heroic) -->
+    <item>71355</item> <!-- Ko'gun, Hammer of the Firelord -->
+
+    <!-- Off-Hand -->
+    <item>71448</item> <!-- Goblet of Anger (heroic) -->
+    <item>71022</item> <!-- Goblet of Anger -->
+
+    <!-- Two-handed -->
+    <item>71774</item> <!-- Smoldering Censer of Purity (heroic) -->
+    <item>71775</item> <!-- Smoldering Censer of Purity -->
+    <item>71797</item> <!-- Sho'ravon, Greatstaff of Annihiliation (heroic) -->
+    <item>71798</item> <!-- Sho'ravon, Greatstaff of Annihiliation -->
+    <item>71086</item> <!-- Dragonwrath, Tarecgosa's Rest -->
+
+    <!-- Ranged (Wand) -->
+    <item>65064</item> <!-- Finkle's Mixer Upper (heroic) -->
+    <item>71579</item> <!-- Scorchvine Wand (heroic) -->
+    <item>71150</item> <!-- Scorchvine Wand -->
+    <item>71473</item> <!-- Stinger of the Flaming Scorpion (heroic) -->
+    <item>71347</item> <!-- Stinger of the Flaming Scorpion -->
+  </items>
+</character>

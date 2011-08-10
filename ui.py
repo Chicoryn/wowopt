@@ -190,7 +190,7 @@ try:
     status = tree.xpath('/character/status')[0].text
 
     root = Tix.Tk()
-    root.title('World of Warcraft Gear Optimizer')
+    root.title('World of Warcraft Optimizer')
 
     if status == 'Optimal':
         char = character(tree)

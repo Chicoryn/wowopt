@@ -587,7 +587,7 @@ class item (armory_item):
 
         reforge_stats = make_stats({}, default = lambda i: pulp.LpVariable(self.real_name + " reforge_stats[" + str(i) + "]", cat = 'Integer'))
         for i in range(len(reforge_stats)):
-            problem += 0 + pulp.lpSum(r * self.reforge[r][i] for r in self.reforge.keys()) == reforge_stats[i]
+            problem += pulp.lpSum(r * self.reforge[r][i] for r in self.reforge.keys()) == reforge_stats[i]
 
         #
         # forall (i in get_enchant_list()):
@@ -738,7 +738,7 @@ class character (armory_character, xml_character):
         #     post: sum (item[slot,:]) = 1
         # forall (i in get_items()):
         #     post: sum (item[:,:] if item[:,:].name == i.name) <= 1
-        problem = pulp.LpProblem("Gear Optimizer", pulp.LpMaximize)
+        problem = pulp.LpProblem("World of Warcraft Optimizer", pulp.LpMaximize)
         item_stats = dict()
 
         for slot in self.items.keys():

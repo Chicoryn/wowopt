@@ -45,8 +45,7 @@
            * ranged_attack_power
            * block
            * armor
-       If one or more attributes are omitted they default to epsilon (close to
-       zero).
+       If one or more attributes are omitted they default to zero.
     -->
   <weights>
     <strength>0.284</strength>
@@ -54,7 +53,7 @@
     <armor>0.153</armor>
     <parry>1</parry>
     <dodge>1</dodge>
-    <mastery>1.2</mastery>
+    <mastery>0.8</mastery>
     <expertise>0.4</expertise>
     <hit>0.2</hit>
   </weights>
@@ -74,8 +73,8 @@
   <additional_constraint file="constraints/bonus_27percent_str_parry.py" />
   <additional_constraint>
 <![CDATA[
-problem += self.penalty >= 2 * self.total_stats[I['parry']] - 2 * self.total_stats[I['dodge']]
-problem += self.penalty >= 2 * self.total_stats[I['dodge']] - 2 * self.total_stats[I['parry']]
+problem += self.penalty >= 1 * self.total_stats[I['parry']] - 1 * self.total_stats[I['dodge']]
+problem += self.penalty >= 1 * self.total_stats[I['dodge']] - 1 * self.total_stats[I['parry']]
 ]]>
 </additional_constraint>
 

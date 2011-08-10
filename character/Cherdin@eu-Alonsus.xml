@@ -45,8 +45,7 @@
            * ranged_attack_power
            * block
            * armor
-       If one or more attributes are omitted they default to epsilon (close to
-       zero).
+       If one or more attributes are omitted they default to zero.
     -->
   <weights>
     <intellect>2.8820</intellect> <!-- 3.48 / (1.15 * 1.05) -->

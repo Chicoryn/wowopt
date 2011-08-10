@@ -279,7 +279,7 @@ class xml_character:
         weight = {}
         for stat in tree.xpath('/character/weights/*'):
             weight[self.__c(stat.tag)] = float(stat.text)
-        self.weight = make_stats(weight, lambda x: 1e-8)
+        self.weight = make_stats(weight, lambda x: 0)
 
         self.additional_constraints = []
         for ac in tree.xpath('/character/additional_constraint'):
@@ -800,11 +800,10 @@ class character (armory_character, xml_character):
 
             exec ac in globals(), locals()
 
-        problem += pulp.lpSum(self.weight[i] * self.total_stats[i] for i in range(len(self.total_stats))) - self.penalty
-
         # problem.writeLP('debug.lp')
-        # problem.solve(pulp.GLPK(msg = 0))
-        problem.solve()
+        problem.sequentialSolve([
+                pulp.lpDot(self.weight, self.total_stats) - self.penalty,
+                pulp.lpSum(self.total_stats) ])
 
         return problem.status
 

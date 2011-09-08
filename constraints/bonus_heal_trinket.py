@@ -1,12 +1,12 @@
-trinkets = { # Fall of Mortality
-             59500: { 'spirit': 385 },
-             # Fall of Mortaility (heroic)
-             65124: { 'spirit': 435 },
-             # Shard of Woe
-             60233: { 'mp5': 900, 'haste': 322 },
-             # Jaws of Defeat
+trinkets = { # Fall of Mortality (15% uptime)
+             59500: { 'spirit': 289 },
+             # Fall of Mortaility (heroic) (15% uptime)
+             65124: { 'spirit': 326 },
+             # Shard of Woe (1.5s gcd)
+             60233: { 'mp5': 1350, 'haste': 322 },
+             # Jaws of Defeat (1.5s gcd)
              68926: { 'mp5': 390 },
-             # Jaws of Defeat (heroic)
+             # Jaws of Defeat (heroic) (1.5s gcd)
              69111: { 'mp5': 440 },
              # Eye of Blazing Power
              68983: { 'hps': 355 },

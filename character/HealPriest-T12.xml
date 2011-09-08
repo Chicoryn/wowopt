@@ -45,13 +45,14 @@
        If one or more attributes are omitted they default to zero.
     -->
   <weights>
-    <intellect>2.8820</intellect> <!-- 3.48 / (1.15 * 1.05) -->
-    <spirit>2.0971</spirit> <!-- 2.16 / 1.03 -->
-    <haste>0</haste>
-    <mastery>1.81</mastery>
-    <critical>1.61</critical>
-    <spell_power>1.76</spell_power>
+    <intellect>2.75</intellect>
+    <spirit>2.0583</spirit>
+    <haste>0</haste> <!-- 2.10 -->
+    <mastery>1.39</mastery>
+    <critical>1.36</critical>
+    <spell_power>1.52</spell_power>
     <hps>1</hps>
+    <mp5>1.5035</mp5> <!-- [spirit weight] / (0.016725 * sqrt(E[intellect]) -->
   </weights>
 
   <!-- Any additional constraints that one might want to add
@@ -64,20 +65,23 @@
        that is strip all whitespace from the end of your
        constraint.
     -->
-  <additional_constraint file="constraints/meta_54_int.py" />
-  <additional_constraint file="constraints/meta_2x_yellow.py" />
-  <additional_constraint file="constraints/t12_set_bonus.py" />
-  <additional_constraint file="constraints/bonus_5percent_int.py" />
-  <additional_constraint file="constraints/bonus_15percent_int.py" />
-  <additional_constraint file="constraints/bonus_3percent_spirit.py" />
   <additional_constraint>
 <![CDATA[
 problem += self.total_stats[I['haste']] >= 517 # 3/3 darkness
 # problem += self.total_stats[I['haste']] >= 646 # 2/3 darkness
 # problem += self.total_stats[I['haste']] >= 780 # 1/3 darkness
 # problem += self.total_stats[I['haste']] >= 915 # 0/3 darkness
+
+problem += self.total_stats[I['spirit']] >= 3200
 ]]>
   </additional_constraint>
+  <additional_constraint file="constraints/meta_54_int.py" />
+  <additional_constraint file="constraints/meta_2x_yellow.py" />
+  <additional_constraint file="constraints/t12_set_bonus.py" />
+  <additional_constraint file="constraints/bonus_heal_trinket.py" />
+  <additional_constraint file="constraints/bonus_5percent_int.py" />
+  <additional_constraint file="constraints/bonus_15percent_int.py" />
+  <additional_constraint file="constraints/bonus_3percent_spirit.py" />
 
   <!-- Any items (by ID) one wish to add to the model. -->
   <items>
@@ -154,7 +158,7 @@ problem += self.total_stats[I['haste']] >= 517 # 3/3 darkness
 
     <!-- Trinket -->
     <item>60233</item> <!-- Shard of Woe -->
-    <item>65124</item> <!-- Fall of Mortality -->
+    <item>65124</item> <!-- Fall of Mortality (heroic) -->
     <item>69000</item> <!-- Fiery Quintessence -->
     <item>69149</item> <!-- Eye of Blazing Power (heroic) -->
     <item>68983</item> <!-- Eye of Blazing Power -->

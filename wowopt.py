@@ -46,7 +46,8 @@ I = dict({ 'strength': 0,
            'block': 19,
            'armor': 20,
            'dps': 21,
-           'ranged attack power': 22 })
+           'ranged attack power': 22,
+           'mp5': 23 })
 
 ''' Gem colour '''
 G = dict({ 'red': 1,
@@ -800,14 +801,15 @@ class character (armory_character, xml_character):
 
             exec ac in globals(), locals()
 
+        self.score = pulp.lpDot(self.weight, self.total_stats) - self.penalty
+
         # problem.writeLP('debug.lp')
-        problem.sequentialSolve([
-                pulp.lpDot(self.weight, self.total_stats) - self.penalty,
-                pulp.lpSum(self.total_stats) ])
+        problem.sequentialSolve([ self.score, pulp.lpSum(self.total_stats) ])
 
         return problem.status
 
     def print_results (self):
+        print '<score>%s</score>' % (pulp.value(self.score),)
         print '<total>%s</total>' % fmt_stats(map (lambda x: pulp.value(x), self.total_stats))
         print '<base>%s</base>' % fmt_stats(self.base_stats)
 

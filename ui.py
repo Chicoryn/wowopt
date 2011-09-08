@@ -187,6 +187,7 @@ class character:
 
 try:
     tree = etree.parse(sys.stdin)
+    score = float(tree.xpath('/character/score')[0].text)
     status = tree.xpath('/character/status')[0].text
 
     root = Tix.Tk()
@@ -200,6 +201,10 @@ try:
         hl.header_create(0, text = '')
         hl.column_width(0, 150)
         hl.header_create(1, text = '')
+
+        hl.add('score')
+        hl.item_create('score', 0, text = 'Score')
+        hl.item_create('score', 1, text = '%s' % (score,))
 
         char.add_items(hl)
 

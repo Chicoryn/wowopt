@@ -48,11 +48,11 @@
        If one or more attributes are omitted they default to zero.
     -->
   <weights>
-    <intellect>3.32</intellect>
-    <spell_power>2.43</spell_power>
-    <critical>0.89</critical>
-    <haste>1.92</haste>
-    <mastery>1.27</mastery>
+    <intellect>3.3354</intellect>
+    <spell_power>2.4513</spell_power>
+    <critical>0.9904</critical>
+    <haste>1.5400</haste>
+    <mastery>1.3075</mastery>
   </weights>
 
   <!-- Any additional constraints that one might want to add
@@ -71,7 +71,7 @@
 <![CDATA[
 problem += self.total_stats[I['hit']] >= 1742
 ]]>
-</additional_constraint>
+  </additional_constraint>
 
   <!-- Any items (by ID) one wish to add to the model. -->
   <items>

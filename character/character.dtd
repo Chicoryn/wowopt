@@ -5,8 +5,8 @@
 <!ELEMENT name         (#PCDATA)>
 <!ELEMENT realm        (#PCDATA)>
 <!ELEMENT region       (#PCDATA)>
-<!ELEMENT base         ((strength|intellect|agility|stamina|resilience|hps|dps|spirit|haste|mastery|critical|hit|expertise|parry|mana|dodge|spell_penetration|spell_power|damage|attack_power|block|armor|ranged_attack_power)*)>
-<!ELEMENT weights      ((strength|intellect|agility|stamina|resilience|hps|dps|spirit|haste|mastery|critical|hit|expertise|parry|mana|dodge|spell_penetration|spell_power|damage|attack_power|block|armor|ranged_attack_power)*)>
+<!ELEMENT base         ((strength|intellect|agility|stamina|resilience|hps|dps|spirit|haste|mastery|critical|hit|expertise|parry|mana|dodge|spell_penetration|spell_power|damage|attack_power|block|armor|ranged_attack_power|mp5)*)>
+<!ELEMENT weights      ((strength|intellect|agility|stamina|resilience|hps|dps|spirit|haste|mastery|critical|hit|expertise|parry|mana|dodge|spell_penetration|spell_power|damage|attack_power|block|armor|ranged_attack_power|mp5)*)>
 <!ELEMENT additional_constraint (#PCDATA)>
 <!ATTLIST additional_constraint file CDATA #IMPLIED>
 <!ELEMENT items        (item*)>
@@ -35,3 +35,4 @@
 <!ELEMENT block (#PCDATA)>
 <!ELEMENT armor (#PCDATA)>
 <!ELEMENT ranged_attack_power (#PCDATA)>
+<!ELEMENT mp5 (#PCDATA)>

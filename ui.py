@@ -187,13 +187,13 @@ class character:
 
 try:
     tree = etree.parse(sys.stdin)
-    score = float(tree.xpath('/character/score')[0].text)
     status = tree.xpath('/character/status')[0].text
 
     root = Tix.Tk()
     root.title('World of Warcraft Optimizer')
 
     if status == 'Optimal':
+        score = float(tree.xpath('/character/score')[0].text)
         char = character(tree)
 
         s = Tix.ScrolledHList(root, options = 'hlist.columns 2')

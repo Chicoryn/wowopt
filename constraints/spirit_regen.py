@@ -3,16 +3,31 @@
 # Basic idea is to approximate sqrt(int) using a piecewise-linear function,
 # and then to approximate sqrt(int) * spi using bilinear filtering.
 #
-# The approximation range affect the accuracy of the bilinear filtering
-# greaterly, therefore the realistic, but narrow, half-open interval
-# [4000,8000) has been chosen for intellect, and the interval [2000,5000) for
-# spirit. With the apperance of new tiers of gear these limits may have to be
-# adjusted.
 import math
 
-int_x = range(4000, 8000, 100)
-spi_min = 2000
-spi_max = 5000
+def solve_min (problem, x):
+    problem += -x
+    problem.solve()
+
+    if pulp.LpStatus[problem.status] == 'Optimal':
+        return int(pulp.value(x))
+    else:
+        return 0
+
+def solve_max (problem, x):
+    problem += x
+    problem.solve()
+
+    if pulp.LpStatus[problem.status] == 'Optimal':
+        return int(pulp.value(x))
+    else:
+        return 0
+
+int_x = range(solve_min(problem, self.total_stats[I['intellect']]),
+              solve_max(problem, self.total_stats[I['intellect']]),
+              100)
+spi_min = solve_min(problem, self.total_stats[I['spirit']])
+spi_max = solve_max(problem, self.total_stats[I['spirit']])
 
 int_z = map(lambda x: pulp.LpVariable('spirit_regen_int_z[%s]' % x, cat = 'Binary'), int_x)
 int_s = map(lambda x: pulp.LpVariable('spirit_regen_int_s[%s]' % x, 0, 1), int_x)

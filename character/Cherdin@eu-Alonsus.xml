@@ -82,9 +82,6 @@
   <additional_constraint file="constraints/t12_set_bonus.py" />
   <additional_constraint file="constraints/bonus_heal_trinket.py" />
   <additional_constraint file="constraints/prof_61_int.py" />
-  <additional_constraint file="constraints/bonus_5percent_int.py" />
-  <additional_constraint file="constraints/bonus_15percent_int.py" />
-  <additional_constraint file="constraints/bonus_3percent_spirit.py" />
   <additional_constraint>
 <![CDATA[
 choice_items = [ ]
@@ -97,5 +94,7 @@ if choice_items:
 
   <!-- Any items (by ID) one wish to add to the model. -->
   <items>
-  </items>
+    <!-- Fall of Mortality (heroic) -->
+    <item>65124</item>
+ </items>
 </character>

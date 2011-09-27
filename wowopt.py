@@ -22,6 +22,7 @@ import pycurl
 import random
 import sys
 import optparse
+import traceback
 
 ''' Stat array indices '''
 I = dict({ 'strength': 0,
@@ -330,6 +331,7 @@ class armory_item (armory_base):
                          3159: { 'stamina': 45 },
                          4160: { 'hit': 10 },
                          4160: { 'hit': 10 },
+                         4163: { 'expertise': 10 },
                          4151: { 'critical': 10 },
                          4152: { 'critical': 20 },
                          4153: { 'critical': 30 },
@@ -493,6 +495,10 @@ class item (armory_item):
                                 ],
                             # Main-hand (weapon)
                             21: [ ],
+                            # Off-hand (weapon)
+                            22: [ ],
+                            # Ranged (weapon)
+                            25: [ ],
                             # Relic
                             28: [ ],
                             })
@@ -740,6 +746,7 @@ class character (armory_character, xml_character):
         # forall (i in get_items()):
         #     post: sum (item[:,:] if item[:,:].name == i.name) <= 1
         problem = pulp.LpProblem("World of Warcraft Optimizer", pulp.LpMaximize)
+        one_handed = []
         item_stats = dict()
 
         for slot in self.items.keys():
@@ -747,11 +754,17 @@ class character (armory_character, xml_character):
                 self.used[item] = pulp.LpVariable("used[" + item.real_name + "]", 0, 1, 'Integer')
                 item_stats[item] = item.solve(problem, self.used[item])
             if self.items[slot]:
-                if slot in [ 11, 12, 13 ]: # Trinket, Ring, One-handed
-                    num_in_slot = 2
+                if slot in [ 13, 22 ]: # One-handed, Off-hand
+                    one_handed.append(self.used[item])
                 else:
-                    num_in_slot = 1
-                problem += pulp.lpSum(self.used[item] for item in self.items[slot]) <= num_in_slot
+                    if slot in [ 11, 12 ]: # Trinket, Ring
+                        num_in_slot = 2
+                    else:
+                        num_in_slot = 1
+                    problem += pulp.lpSum(self.used[item] for item in self.items[slot]) <= num_in_slot
+
+        if one_handed:
+            problem += pulp.lpSum(one_handed) <= 2
 
         for item in self.used.keys():
             duplicates = [ self.used[i] for i in self.used.keys() if i.get_name() == item.get_name() ]
@@ -762,7 +775,7 @@ class character (armory_character, xml_character):
         #
         # variable: slot_17 in [0,1]
         # post: slot_17 == sum (used[item] for item in items[17,:])
-        # for slot in [ 13, 14, 21, 23 ]:
+        # for slot in [ 13, 14, 21, 22, 23 ]:
         #     variable: slot_used in [0,1]
         #     post: slot_used = sum (used[item] for item in items[slot,:])
         #     post: slot_used <= 1 - slot_17
@@ -774,7 +787,7 @@ class character (armory_character, xml_character):
             else:
                 problem += slot_used_17 == 0
 
-            for slot in set([ 13, 14, 21, 23 ]) & set(self.items.keys()):
+            for slot in set([ 13, 14, 21, 22, 23 ]) & set(self.items.keys()):
                 slot_used = pulp.LpVariable('slot_used[' + str(slot) + ']', 0, 1, 'Integer')
                 problem += slot_used == pulp.lpSum(self.used[item] for item in self.items[slot])
                 problem += slot_used <= 1 - slot_used_17
@@ -857,5 +870,5 @@ try:
 
     print '</character>'
 except Exception as e:
-    print '<character><status>Error</status><message><![CDATA[%s]]></message></character>' % (e)
+    print '<character><status>Error</status><message><![CDATA[%s]]></message></character>' % (traceback.format_exc())
     sys.exit(1)

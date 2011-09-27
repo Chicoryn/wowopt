@@ -48,11 +48,11 @@
        If one or more attributes are omitted they default to zero.
     -->
   <weights>
-    <intellect>3.3354</intellect>
-    <spell_power>2.4513</spell_power>
-    <critical>0.9904</critical>
-    <haste>1.5400</haste>
-    <mastery>1.3075</mastery>
+    <intellect>3.3105</intellect>
+    <spell_power>2.4430</spell_power>
+    <critical>1.0413</critical>
+    <haste>1.6071</haste>
+    <mastery>1.3370</mastery>
   </weights>
 
   <!-- Any additional constraints that one might want to add
@@ -75,5 +75,9 @@ problem += self.total_stats[I['hit']] >= 1742
 
   <!-- Any items (by ID) one wish to add to the model. -->
   <items>
+    <item>69571</item> <!-- Soul Drain Signet -->
+    <item>58188</item> <!-- Band of Secret Names -->
+    <item>62431</item> <!-- Belt of the Untamed -->
+    <item>69579</item> <!-- Amani Headdress -->
   </items>
 </character>

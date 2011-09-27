@@ -23,9 +23,9 @@ def solve_max (problem, x):
     else:
         return 0
 
-int_x = range(solve_min(problem, self.total_stats[I['intellect']]),
-              solve_max(problem, self.total_stats[I['intellect']]),
-              100)
+int_min = solve_min(problem, self.total_stats[I['intellect']])
+int_max = solve_max(problem, self.total_stats[I['intellect']])
+int_x = range(int_min, int_max, max(1, (int_max - int_min) / 10))
 spi_min = solve_min(problem, self.total_stats[I['spirit']])
 spi_max = solve_max(problem, self.total_stats[I['spirit']])
 

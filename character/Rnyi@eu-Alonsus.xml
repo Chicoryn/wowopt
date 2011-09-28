@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE character SYSTEM "character.dtd">
+<character>
+  <!-- Character information. If load is set to true then all currently
+       equipped items will be added to the model.
+    -->
+  <info load="true">
+    <name>Rnyi</name> <!-- Ignored unless load = true -->
+    <realm>Alonsus</realm> <!-- Ignored unless load = true -->
+    <region>eu</region> <!-- Ignored unless load = true -->
+
+    <!-- Character base stats at level 85 -->
+    <base>
+      <strength>117</strength>
+      <agility>218</agility>
+      <stamina>114</stamina>
+      <intellect>49</intellect>
+      <spirit>71</spirit>
+    </base>
+  </info>
+
+  <!-- The weights of each stat in the objective function, to be
+       maximised, in the solver. Terms in the objective function
+       are:
+           * strength
+           * intellect
+           * agility
+           * stamina
+           * resilience
+           * hps
+           * dps
+           * spirit
+           * haste
+           * mastery
+           * critical
+           * hit
+           * expertise
+           * parry
+           * mana
+           * dodge
+           * spell_penetration
+           * spell_power
+           * damage
+           * attack_power
+           * ranged_attack_power
+           * block
+           * armor
+       If one or more attributes are omitted they default to zero.
+    -->
+  <weights>
+    <agility>2.7</agility>
+    <attack_power>1.0</attack_power>
+    <hit>1.4</hit>
+    <expertise>1.65</expertise>
+    <mastery>1.2</mastery>
+    <haste>1.5</haste>
+    <critical>0.9</critical>
+  </weights>
+
+  <!-- Any additional constraints that one might want to add
+       to the model. A constraint is written in Python with
+       *full* access to all internal states of the solver.
+
+       Note that you need to follow all standard coding
+       conventions, such as line indention, when writing
+       the Python code. The only help the solver provides is
+       that is strip all whitespace from the end of your
+       constraint.
+    -->
+  <additional_constraint file="constraints/meta_3x_red.py" />
+  <additional_constraint>
+<![CDATA[
+problem += self.total_stats[I['hit']] >= 241  # Yellow Hit
+problem += self.total_stats[I['hit']] <= 1128 # Spell Hit
+]]>
+  </additional_constraint>
+  <additional_constraint>
+<![CDATA[
+# Expertise cap, note that it's enough to cap only one of your weapons before
+# the weights drops significantly. In this model it drops to zero, which is
+# inaccurate but produce the desired result.
+expertise_cap = 691 # 781 if no racial
+expertise_pen = pulp.LpVariable('expertise_penalty', 0, cat = 'Integer')
+
+problem += expertise_pen >= self.total_stats[I['expertise']] - expertise_cap
+problem += self.penalty == self.weight[I['expertise']] * expertise_pen
+]]>
+  </additional_constraint>
+
+  <!-- Any items (by ID) one wish to add to the model. -->
+  <items>
+  </items>
+</character>

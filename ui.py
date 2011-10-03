@@ -196,7 +196,8 @@ try:
         score = float(tree.xpath('/character/score')[0].text)
         char = character(tree)
 
-        s = Tix.ScrolledHList(root, options = 'hlist.columns 2')
+        s = Tix.ScrolledHList(root, width = 600, height = 700,
+                                    options = 'hlist.columns 2')
         hl = s.hlist
         hl.header_create(0, text = '')
         hl.column_width(0, 150)

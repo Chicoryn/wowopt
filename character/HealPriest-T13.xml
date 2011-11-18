@@ -1,0 +1,285 @@
+<character>
+  <!-- Character information. If load is set to true then all currently
+       equipped items will be added to the model.
+    -->
+  <info load="false">
+    <name></name> <!-- Ignored unless load = true -->
+    <realm></realm> <!-- Ignored unless load = true -->
+    <region></region> <!-- Ignored unless load = true -->
+
+    <!-- Character base stats at level 85 -->
+    <base>
+      <intellect>199</intellect>
+      <stamina>71</stamina>
+      <strength>46</strength>
+      <agility>54</agility>
+      <spirit>203</spirit>
+    </base>
+  </info>
+
+  <!-- The weights of each stat in the objective function, to be
+       maximised, in the solver. Terms in the objective function
+       are:
+           * strength
+           * intellect
+           * agility
+           * stamina
+           * resilience
+           * hps
+           * dps
+           * spirit
+           * haste
+           * mastery
+           * critical
+           * hit
+           * expertise
+           * parry
+           * mana
+           * dodge
+           * spell_penetration
+           * spell_lower
+           * damage
+           * attack_power
+           * block
+           * armor
+       If one or more attributes are omitted they default to zero.
+    -->
+  <weights>
+    <intellect>2.2774</intellect> <!-- 2.75 / (1.15 * 1.05) -->
+    <spirit>0</spirit> <!-- 2.0583 / (1.03) -->
+    <haste>0</haste> <!-- 2.10 -->
+    <mastery>1.39</mastery>
+    <critical>1.36</critical>
+    <spell_power>1.52</spell_power>
+    <hps>1</hps>
+    <mp5>1.5035</mp5> <!-- [spirit weight] / (0.016725 * sqrt(E[intellect]) -->
+  </weights>
+
+  <!-- Any additional constraints that one might want to add
+       to the model. A constraint is written in Python with
+       *full* access to all internal states of the solver.
+
+       Note that you need to follow all standard coding
+       conventions, such as line indention, when writing
+       the Python code. The only help the solver provides is
+       that is strip all whitespace from the end of your
+       constraint.
+    -->
+  <additional_constraint>
+<![CDATA[
+# problem += self.total_stats[I['haste']] >= 517 # 3/3 darkness
+# problem += self.total_stats[I['haste']] >= 646 # 2/3 darkness
+# problem += self.total_stats[I['haste']] >= 780 # 1/3 darkness
+# problem += self.total_stats[I['haste']] >= 915 # 0/3 darkness
+]]>
+  </additional_constraint>
+  <additional_constraint file="constraints/meta_54_int.py" />
+  <additional_constraint file="constraints/meta_2x_yellow.py" />
+  <additional_constraint file="constraints/t12_set_bonus.py" />
+  <additional_constraint file="constraints/bonus_15percent_int.py" />
+  <additional_constraint file="constraints/bonus_5percent_int.py" />
+  <additional_constraint file="constraints/bonus_3percent_spirit.py" />
+  <additional_constraint file="constraints/spirit_regen.py" />
+  <additional_constraint>
+<![CDATA[
+mp5_spirit_regen = pulp.LpVariable('mp5_spirit_regen', 0)
+
+problem += mp5_spirit_regen == self.total_stats[I['mp5']] + self.spirit_regen
+self.total_stats[I['mp5']] = mp5_spirit_regen
+]]>
+  </additional_constraint>
+  <additional_constraint file="constraints/bonus_heal_trinket.py" />
+
+  <!-- Any items (by ID) one wish to add to the model. -->
+  <items>
+    <!-- Head -->
+    <item>65020</item> <!-- Crown of Burning Water (heroic) -->
+    <item>71272</item> <!-- Cowl of the Cleansing Flame -->
+    <item>71528</item> <!-- Cowl of the Cleansing Flame (heroic) -->
+    <item>71533</item> <!-- Hood of the Cleansing Flame (heroic) -->
+    <item>71277</item> <!-- Hood of the Cleansing Flame -->
+    <item>78703</item> <!-- Hood of Dying Light (heroic) -->
+    <item>76347</item> <!-- Hood of Dying Light -->
+    <item>78700</item> <!-- Cowl of Dying Light (heroic) -->
+    <item>76358</item> <!-- Cowl of Dying Light -->
+
+    <!-- Neck -->
+    <item>71214</item> <!-- Firemind Pendant -->
+    <item>71423</item> <!-- Heartstone of Rhyolith (heroic) -->
+    <item>71012</item> <!-- Heartstone of Rhyolith -->
+    <item>71472</item> <!-- Flowform Choker (heroic) -->
+    <item>71348</item> <!-- Flowform Choker -->
+    <item>78364</item> <!-- Petrified Fungal Heart (heroic) -->
+    <item>77262</item> <!-- Petrified Fungal Heart -->
+    <item>78382</item> <!-- Petrified Fungal Heart (LFR) -->
+
+    <!-- Shoulder -->
+    <item>71531</item> <!-- Mantle of the Cleansing Flame (heroic) -->
+    <item>71275</item> <!-- Mantle of the Cleansing Flame -->
+    <item>71536</item> <!-- Shoulderwraps of the Cleansing Flame (heroic) -->
+    <item>71280</item> <!-- Shoulderwraps of the Cleansing Flame -->
+    <item>71471</item> <!-- Mantle of Closed Doors (heroic) -->
+    <item>71343</item> <!-- Mantle of Closed Doors -->
+    <item>78366</item> <!-- Mosswrought Shoulderguards (heroic) -->
+    <item>77267</item> <!-- Mosswrought Shoulderguards -->
+    <item>78381</item> <!-- Mosswrought Shoulderguards (LFR) -->
+    <item>78750</item> <!-- Mantle of Dying Light (heroic) -->
+    <item>76344</item> <!-- Mantle of Dying Light -->
+    <item>78747</item> <!-- Mantle of Dying Light (healing) (heroic) -->
+    <item>76361</item> <!-- Mantle of Dying Light (healing) -->
+
+    <!-- Chest -->
+    <item>71530</item> <!-- Robes of the Cleansing Flame (heroic) -->
+    <item>71274</item> <!-- Robes of the Cleansing Frame -->
+    <item>71535</item> <!-- Vestment of the Cleansing Flame (heroic) -->
+    <item>71279</item> <!-- Ventment of the Cleansing Flame -->
+    <item>71407</item> <!-- Robes of Smoldering Destruction (heroic) -->
+    <item>71041</item> <!-- Robes of Smoldering Destruction -->
+    <item>78365</item> <!-- Robe of Glowing Stone (heroic) -->
+    <item>77263</item> <!-- Robe of Glowing Stone -->
+    <item>78380</item> <!-- Robe of Glowing Stone (LFR) -->
+    <item>78731</item> <!-- Robes of Dying Light (heroic) -->
+    <item>76345</item> <!-- Robes of Dying Light -->
+    <item>78728</item> <!-- Robes of Dying Light (healing) (heroic) -->
+    <item>76360</item> <!-- Robes of Dying Light (healing) -->
+
+    <!-- Waist -->
+    <item>71613</item> <!-- Majordomo's Chain of Office (heroic) -->
+    <item>71357</item> <!-- Majordomo's Chain of Office -->
+    <item>71258</item> <!-- Embereye Belt -->
+    <item>70368</item> <!-- Ruthless Gladiator's Cord of Meditation -->
+    <item>78391</item> <!-- Cord of the Slain Champion (heroic) -->
+    <item>77255</item> <!-- Cord of the Slain Champion -->
+    <item>78398</item> <!-- Cord of the Slain Champion (LFR) -->
+
+    <!-- Legs -->
+    <item>71529</item> <!-- Legswraps of the Cleansing Flame (heroic) -->
+    <item>71273</item> <!-- Legswraps of the Cleansing Flame -->
+    <item>71534</item> <!-- Leggings of the Cleansing Flame (heroic) -->
+    <item>71278</item> <!-- Leggings of the Cleansing Flame -->
+    <item>71435</item> <!-- Leggings of Billowing Flame (heroic) -->
+    <item>70989</item> <!-- Leggings of Billowing Flame -->
+    <item>78722</item> <!-- Leggings of Dying Light (heroic) -->
+    <item>76346</item> <!-- Leggings of Dying Light -->
+    <item>78719</item> <!-- Legwraps of Dying Light (heroic) -->
+    <item>76359</item> <!-- Legwraps of Dying Light -->
+
+    <!-- Feet -->
+    <item>69953</item> <!-- Endless Dream Walker -->
+    <item>71447</item> <!-- Coalwalker Sandals (heroic) -->
+    <item>71023</item> <!-- Coalwalker Sandals -->
+    <item>70367</item> <!-- Ruthless Gladiator's Threads of Meditation -->
+    <item>78449</item> <!-- Janglespur Jackboots (heroic) -->
+    <item>77234</item> <!-- Janglespur Jackboots -->
+    <item>78457</item> <!-- Janglespur Jackboots (LFR) -->
+
+    <!-- Wrist -->
+    <item>60238</item> <!-- Bracers of the Dark Mother (heroic) -->
+    <item>71266</item> <!-- Firesoul Wristguards -->
+    <item>71471</item> <!-- Wristwraps of Arrogant Doom (heroic) -->
+    <item>71350</item> <!-- Wristwraps of Arrogant Doom -->
+    <item>78417</item> <!-- Bracers of the Banished (heroic) -->
+    <item>77249</item> <!-- Bracers of the Banished -->
+    <item>78425</item> <!-- Bracers of the Banished (LFR) -->
+
+    <!-- Hand -->
+    <item>71532</item> <!-- Gloves of the Cleansing Flame (heroic) -->
+    <item>71276</item> <!-- Gloves of the Cleansing Flame -->
+    <item>71527</item> <!-- Handwraps of the Cleansing Flame (heroic) -->
+    <item>71271</item> <!-- Handwraps of the Cleansing Flame -->
+    <item>71614</item> <!-- Fingers of Incineration (heroic) -->
+    <item>71358</item> <!-- Fingers of Incineration -->
+    <item>69944</item> <!-- Grips of Altered Reality -->
+    <item>78461</item> <!-- Gloves of Liquid Smoke (heroic) -->
+    <item>78357</item> <!-- Gloves of Liquid Smoke -->
+    <item>78466</item> <!-- Gloves of Liquid Smoke (LFR) -->
+    <item>78682</item> <!-- Gloves of Dying Light (heroic) -->
+    <item>76348</item> <!-- Gloves of Dying Light -->
+    <item>78683</item> <!-- Handwraps of Dying Light (heroic) -->
+    <item>76357</item> <!-- Handwraps of Dying Light -->
+
+    <!-- Finger -->
+    <item>71237</item> <!-- Quicksilver Signet of the Avengers -->
+    <item>71211</item> <!-- Soothing Brimstone Circle -->
+    <item>71449</item> <!-- Crystal Prison Band (heroic) -->
+    <item>71024</item> <!-- Crystal Prison Band -->
+    <item>78419</item> <!-- Ring of the Riven (heroic) -->
+    <item>78012</item> <!-- Ring of the Riven -->
+    <item>78427</item> <!-- Ring of the Riven (LFR) -->
+    <item>78491</item> <!-- Signet of Suturing (heroic) -->
+    <item>77229</item> <!-- Signet of Suturing -->
+    <item>78496</item> <!-- Signet of Suturing (LFR) -->
+
+    <!-- Trinket -->
+    <item>60233</item> <!-- Shard of Woe -->
+    <item>65124</item> <!-- Fall of Mortality (heroic) -->
+    <item>69000</item> <!-- Fiery Quintessence -->
+    <item>69149</item> <!-- Eye of Blazing Power (heroic) -->
+    <item>68983</item> <!-- Eye of Blazing Power -->
+    <item>69111</item> <!-- Jaws of Defeat (heroic) -->
+    <item>68926</item> <!-- Jaws of Defeat -->
+    <item>78001</item> <!-- Windward Heart (heroic) -->
+    <item>77209</item> <!-- Windward Heart -->
+    <item>77981</item> <!-- Windward Heart (LFR) -->
+    <item>77989</item> <!-- Seal of the Seven Signs (heroic) -->
+    <item>77204</item> <!-- Seal of the Seven Signs -->
+    <item>77969</item> <!-- Seal of the Seven Signs (LFR) -->
+    <item>77996</item> <!-- Heart of the Unliving (heroic) -->
+    <item>77199</item> <!-- Heart of the Unliving -->
+    <item>77976</item> <!-- Heart of the Unliving (LFR) -->
+    <item>77995</item> <!-- Will of the Unbinding (heroic) -->
+    <item>77198</item> <!-- Will of the Unbinding -->
+    <item>77975</item> <!-- Will of the Unbinding (LFR) -->
+
+    <!-- Back -->
+    <item>65108</item> <!-- Drape of the Twins (heroic) -->
+    <item>60232</item> <!-- Shroud of Endless Grief (heroic) -->
+    <item>71229</item> <!-- Flowing Flamewrath Cloak -->
+    <item>71270</item> <!-- Mantle of Patience -->
+    <item>71434</item> <!-- Wings of Flame (heroic) -->
+    <item>70990</item> <!-- Wings of Flame -->
+
+    <!-- Main-Hand -->
+    <item>71615</item> <!-- Ko'gun, Hammer of the Firelord (heroic) -->
+    <item>71355</item> <!-- Ko'gun, Hammer of the Firelord -->
+    <item>78476</item> <!-- Maw of the Dragonlord (heroic) -->
+    <item>77196</item> <!-- Maw of the Dragonlord -->
+    <item>78485</item> <!-- Maw of the Dragonlord (LFR) -->
+    <item>78363</item> <!-- Vagaries of Time (heroic) -->
+    <item>77214</item> <!-- Vagaries of Time -->
+    <item>78383</item> <!-- Vagaries of Time (LFR) -->
+    <item>78404</item> <!-- Scalpel of Unrelenting Agony (heroic) -->
+    <item>77219</item> <!-- Scalpel of Unrelenting Agony -->
+    <item>78410</item> <!-- Scalpel of Unrelenting Agony (LFR) -->
+
+    <!-- Off-Hand -->
+    <item>71448</item> <!-- Goblet of Anger (heroic) -->
+    <item>71022</item> <!-- Goblet of Anger -->
+    <item>78433</item> <!-- Ledger of Revolting Rituals (heroic) -->
+    <item>77245</item> <!-- Ledger of Revolting Rituals -->
+    <item>78441</item> <!-- Ledger of Revolting Rituals (LFR) -->
+
+    <!-- Two-handed -->
+    <item>71774</item> <!-- Smoldering Censer of Purity (heroic) -->
+    <item>71775</item> <!-- Smoldering Censer of Purity -->
+    <item>71797</item> <!-- Sho'ravon, Greatstaff of Annihiliation (heroic) -->
+    <item>71798</item> <!-- Sho'ravon, Greatstaff of Annihiliation -->
+    <item>71086</item> <!-- Dragonwrath, Tarecgosa's Rest -->
+    <item>78477</item> <!-- Ti'tahk, the Steps of Time (heroic) -->
+    <item>77190</item> <!-- Ti'tahk, the Steps of Time -->
+    <item>78486</item> <!-- Ti'tahk, the Steps of Time (LFR) -->
+    <item>78451</item> <!-- Visage of the Destroyer (heroic) -->
+    <item>77225</item> <!-- Visage of the Destroyer -->
+    <item>78459</item> <!-- Visage of the Destroyer (LFR) -->
+
+    <!-- Ranged (Wand) -->
+    <item>65064</item> <!-- Finkle's Mixer Upper (heroic) -->
+    <item>71579</item> <!-- Scorchvine Wand (heroic) -->
+    <item>71150</item> <!-- Scorchvine Wand -->
+    <item>71473</item> <!-- Stinger of the Flaming Scorpion (heroic) -->
+    <item>71347</item> <!-- Stinger of the Flaming Scorpion -->
+    <item>78392</item> <!-- Finger of Zon'ozz (heroic) -->
+    <item>77216</item> <!-- Finger of Zon'ozz -->
+    <item>78399</item> <!-- Finger of Zon'ozz (LFR) -->
+  </items>
+</character>

@@ -49,7 +49,7 @@
     -->
   <weights>
     <intellect>2.75</intellect>
-    <spirit>2.0583</spirit>
+    <spirit>0</spirit> <!-- 2.0583 -->
     <haste>0</haste> <!-- 2.10 -->
     <mastery>1.39</mastery>
     <critical>1.36</critical>
@@ -82,6 +82,15 @@
   <additional_constraint file="constraints/t12_set_bonus.py" />
   <additional_constraint file="constraints/bonus_heal_trinket.py" />
   <additional_constraint file="constraints/prof_61_int.py" />
+  <additional_constraint file="constraints/spirit_regen.py" />
+  <additional_constraint>
+<![CDATA[
+mp5_spirit_regen = pulp.LpVariable('mp5_spirit_regen', 0)
+
+problem += mp5_spirit_regen == self.total_stats[I['mp5']] + self.spirit_regen
+self.total_stats[I['mp5']] = mp5_spirit_regen
+]]>
+  </additional_constraint>
   <additional_constraint>
 <![CDATA[
 choice_items = [ ]
@@ -96,5 +105,14 @@ if choice_items:
   <items>
     <!-- Fall of Mortality (heroic) -->
     <item>65124</item>
+
+    <!-- Mantle of the Cleansing Flame (heroic) -->
+    <item>71531</item>
+
+    <!-- Crystal Prison Band (heroic) -->
+    <item>71449</item>
+
+    <!-- Coalwalker Sandals (heroic) -->
+    <item>71447</item>
  </items>
 </character>

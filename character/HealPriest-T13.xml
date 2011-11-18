@@ -76,6 +76,7 @@
   <additional_constraint file="constraints/meta_54_int.py" />
   <additional_constraint file="constraints/meta_2x_yellow.py" />
   <additional_constraint file="constraints/t12_set_bonus.py" />
+  <additional_constraint file="constraints/t13_set_bonus.py" />
   <additional_constraint file="constraints/bonus_15percent_int.py" />
   <additional_constraint file="constraints/bonus_5percent_int.py" />
   <additional_constraint file="constraints/bonus_3percent_spirit.py" />
@@ -100,8 +101,11 @@ self.total_stats[I['mp5']] = mp5_spirit_regen
     <item>71277</item> <!-- Hood of the Cleansing Flame -->
     <item>78703</item> <!-- Hood of Dying Light (heroic) -->
     <item>76347</item> <!-- Hood of Dying Light -->
+    <item>78798</item> <!-- Hood of Dying Light (LFR) -->
     <item>78700</item> <!-- Cowl of Dying Light (heroic) -->
     <item>76358</item> <!-- Cowl of Dying Light -->
+    <item>78795</item> <!-- Cowl of Dying Light (LFR) -->
+	<item>77146</item> <!-- Soulgaze Cowl -->
 
     <!-- Neck -->
     <item>71214</item> <!-- Firemind Pendant -->
@@ -112,6 +116,7 @@ self.total_stats[I['mp5']] = mp5_spirit_regen
     <item>78364</item> <!-- Petrified Fungal Heart (heroic) -->
     <item>77262</item> <!-- Petrified Fungal Heart -->
     <item>78382</item> <!-- Petrified Fungal Heart (LFR) -->
+	<item>77089</item> <!-- Threadlinked Chain -->
 
     <!-- Shoulder -->
     <item>71531</item> <!-- Mantle of the Cleansing Flame (heroic) -->
@@ -125,8 +130,10 @@ self.total_stats[I['mp5']] = mp5_spirit_regen
     <item>78381</item> <!-- Mosswrought Shoulderguards (LFR) -->
     <item>78750</item> <!-- Mantle of Dying Light (heroic) -->
     <item>76344</item> <!-- Mantle of Dying Light -->
+	<item>78845</item> <!-- Mantle of Dying Light (LFR) -->
     <item>78747</item> <!-- Mantle of Dying Light (healing) (heroic) -->
     <item>76361</item> <!-- Mantle of Dying Light (healing) -->
+    <item>78842</item> <!-- Mantle of Dying Light (healing) (LFR) -->
 
     <!-- Chest -->
     <item>71530</item> <!-- Robes of the Cleansing Flame (heroic) -->
@@ -140,8 +147,10 @@ self.total_stats[I['mp5']] = mp5_spirit_regen
     <item>78380</item> <!-- Robe of Glowing Stone (LFR) -->
     <item>78731</item> <!-- Robes of Dying Light (heroic) -->
     <item>76345</item> <!-- Robes of Dying Light -->
+	<item>78826</item> <!-- Robes of Dying Light (LFR) -->
     <item>78728</item> <!-- Robes of Dying Light (healing) (heroic) -->
     <item>76360</item> <!-- Robes of Dying Light (healing) -->
+	<item>78823</item> <!-- Robes of Dying Light (healing) (LFR) -->
 
     <!-- Waist -->
     <item>71613</item> <!-- Majordomo's Chain of Office (heroic) -->
@@ -151,6 +160,8 @@ self.total_stats[I['mp5']] = mp5_spirit_regen
     <item>78391</item> <!-- Cord of the Slain Champion (heroic) -->
     <item>77255</item> <!-- Cord of the Slain Champion -->
     <item>78398</item> <!-- Cord of the Slain Champion (LFR) -->
+	<item>77179</item> <!-- Tentacular Belt -->
+	<item>77187</item> <!-- Vestal's Irrepressible Girdle -->
 
     <!-- Legs -->
     <item>71529</item> <!-- Legswraps of the Cleansing Flame (heroic) -->
@@ -161,8 +172,10 @@ self.total_stats[I['mp5']] = mp5_spirit_regen
     <item>70989</item> <!-- Leggings of Billowing Flame -->
     <item>78722</item> <!-- Leggings of Dying Light (heroic) -->
     <item>76346</item> <!-- Leggings of Dying Light -->
+	<item>78817</item> <!-- Leggings of Dying Light (LFR) -->
     <item>78719</item> <!-- Legwraps of Dying Light (heroic) -->
     <item>76359</item> <!-- Legwraps of Dying Light -->
+    <item>78814</item> <!-- Legwraps of Dying Light (LFR) -->
 
     <!-- Feet -->
     <item>69953</item> <!-- Endless Dream Walker -->
@@ -172,6 +185,7 @@ self.total_stats[I['mp5']] = mp5_spirit_regen
     <item>78449</item> <!-- Janglespur Jackboots (heroic) -->
     <item>77234</item> <!-- Janglespur Jackboots -->
     <item>78457</item> <!-- Janglespur Jackboots (LFR) -->
+	<item>77177</item> <!-- Splinterfoot Sandals -->
 
     <!-- Wrist -->
     <item>60238</item> <!-- Bracers of the Dark Mother (heroic) -->
@@ -181,6 +195,7 @@ self.total_stats[I['mp5']] = mp5_spirit_regen
     <item>78417</item> <!-- Bracers of the Banished (heroic) -->
     <item>77249</item> <!-- Bracers of the Banished -->
     <item>78425</item> <!-- Bracers of the Banished (LFR) -->
+	<item>77323</item> <!-- Bracers of the Black Dream -->
 
     <!-- Hand -->
     <item>71532</item> <!-- Gloves of the Cleansing Flame (heroic) -->
@@ -195,8 +210,11 @@ self.total_stats[I['mp5']] = mp5_spirit_regen
     <item>78466</item> <!-- Gloves of Liquid Smoke (LFR) -->
     <item>78682</item> <!-- Gloves of Dying Light (heroic) -->
     <item>76348</item> <!-- Gloves of Dying Light -->
+    <item>78777</item> <!-- Gloves of Dying Light (LFR) -->
     <item>78683</item> <!-- Handwraps of Dying Light (heroic) -->
     <item>76357</item> <!-- Handwraps of Dying Light -->
+    <item>78778</item> <!-- Handwraps of Dying Light (LFR) -->
+	<item>77157</item> <!-- The Hands of Gilly -->
 
     <!-- Finger -->
     <item>71237</item> <!-- Quicksilver Signet of the Avengers -->
@@ -209,6 +227,7 @@ self.total_stats[I['mp5']] = mp5_spirit_regen
     <item>78491</item> <!-- Signet of Suturing (heroic) -->
     <item>77229</item> <!-- Signet of Suturing -->
     <item>78496</item> <!-- Signet of Suturing (LFR) -->
+	<item>77109</item> <!-- Band of Reconstruction -->
 
     <!-- Trinket -->
     <item>60233</item> <!-- Shard of Woe -->
@@ -230,6 +249,8 @@ self.total_stats[I['mp5']] = mp5_spirit_regen
     <item>77995</item> <!-- Will of the Unbinding (heroic) -->
     <item>77198</item> <!-- Will of the Unbinding -->
     <item>77975</item> <!-- Will of the Unbinding (LFR) -->
+	<item>77115</item> <!-- Reflection of the Light -->
+	<item>77114</item> <!-- Bottled Wishes -->
 
     <!-- Back -->
     <item>65108</item> <!-- Drape of the Twins (heroic) -->
@@ -238,6 +259,7 @@ self.total_stats[I['mp5']] = mp5_spirit_regen
     <item>71270</item> <!-- Mantle of Patience -->
     <item>71434</item> <!-- Wings of Flame (heroic) -->
     <item>70990</item> <!-- Wings of Flame -->
+	<item>77096</item> <!-- Woundlicker Cover -->
 
     <!-- Main-Hand -->
     <item>71615</item> <!-- Ko'gun, Hammer of the Firelord (heroic) -->
@@ -274,12 +296,12 @@ self.total_stats[I['mp5']] = mp5_spirit_regen
 
     <!-- Ranged (Wand) -->
     <item>65064</item> <!-- Finkle's Mixer Upper (heroic) -->
-    <item>71579</item> <!-- Scorchvine Wand (heroic) -->
     <item>71150</item> <!-- Scorchvine Wand -->
     <item>71473</item> <!-- Stinger of the Flaming Scorpion (heroic) -->
     <item>71347</item> <!-- Stinger of the Flaming Scorpion -->
     <item>78392</item> <!-- Finger of Zon'ozz (heroic) -->
     <item>77216</item> <!-- Finger of Zon'ozz -->
     <item>78399</item> <!-- Finger of Zon'ozz (LFR) -->
+	<item>77078</item> <!-- Scintillating Rods -->
   </items>
 </character>

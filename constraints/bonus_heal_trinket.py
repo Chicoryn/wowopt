@@ -11,7 +11,47 @@ trinkets = { # Fall of Mortality (15% uptime)
              # Eye of Blazing Power
              68983: { 'hps': 355 },
              # Eye of Blazing Power (heroic)
-             69149: { 'hps': 355 }
+             69149: { 'hps': 355 },
+			 # Reflection of the Light
+			 77115: { 'spell power': 382 },
+			 # Bottled Wishes
+			 77114: { 'spell power': 382 },
+			 # Will of the Unbinding (heroic)
+			 77995: { 'intellect': 990 },
+			 # Will of the Unbinding
+			 77198: { 'intellect': 880 },
+			 # Will of the Unbinding (LFR)
+			 77975: { 'intellect': 780 },
+			 # Heart of Unliving (heroic)
+			 77996: { 'spirit': 990 },
+			 # Heart of Unliving
+			 77199: { 'spirit': 880 },
+			 # Heart of Unliving (LFR)
+			 77976: { 'spirit': 780 },
+			 # Seal of the Seven Signs (heroic) (20% uptime)
+			 77989: { 'haste': 655 },
+			 # Seal of the Seven Signs (20% uptime)
+			 77204: { 'haste': 580 },
+			 # Seal of the Seven Signs (LFR) (20% uptime)
+			 77969: { 'haste': 514 },
+			 # Windward Heart (heroic) (45s icd)
+			 78001: { 'hps': 281 },
+			 # Windward Heart (45s icd)
+			 77209: { 'hps': 249 },
+			 # Windward Heart (LFR) (45s icd)
+			 77981: { 'hps': 221 },
+			 # Maw of the Dragonlord (heroic) (15s icd, 6 targets average)
+			 78476: { 'hps': 2980 },
+			 # Maw of the Dragonlord (15s icd, 6 targets average)
+			 77196: { 'hps': 2640 },
+			 # Maw of the Dragonlord (LFR) (15s icd, 6 targets average)
+			 78485: { 'hps': 2338 },
+			 # Ti'tahk, the Steps of Time (heroic) (45s icd)
+			 78477: { 'haste': 483 },
+			 # Ti'tahk, the Steps of Time (45s icd)
+			 77190: { 'haste': 428 },
+			 # Ti'tahk, the Steps of Time (LFR) (45s icd)
+			 78486: { 'haste': 379 },
            }
 
 for item in self.get_items():

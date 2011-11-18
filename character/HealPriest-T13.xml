@@ -80,6 +80,7 @@
   <additional_constraint file="constraints/bonus_15percent_int.py" />
   <additional_constraint file="constraints/bonus_5percent_int.py" />
   <additional_constraint file="constraints/bonus_3percent_spirit.py" />
+  <additional_constraint file="constraints/bonus_heal_trinket.py" />
   <additional_constraint file="constraints/spirit_regen.py" />
   <additional_constraint>
 <![CDATA[
@@ -89,7 +90,6 @@ problem += mp5_spirit_regen == self.total_stats[I['mp5']] + self.spirit_regen
 self.total_stats[I['mp5']] = mp5_spirit_regen
 ]]>
   </additional_constraint>
-  <additional_constraint file="constraints/bonus_heal_trinket.py" />
 
   <!-- Any items (by ID) one wish to add to the model. -->
   <items>

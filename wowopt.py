@@ -816,8 +816,9 @@ class character (armory_character, xml_character):
 
         self.score = pulp.lpDot(self.weight, self.total_stats) - self.penalty
 
+        problem += self.score
         # problem.writeLP('debug.lp')
-        problem.sequentialSolve([ self.score, pulp.lpSum(self.total_stats) ])
+        problem.solve()
 
         return problem.status
 

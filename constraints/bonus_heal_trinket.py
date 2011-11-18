@@ -22,6 +22,6 @@ for item in self.get_items():
 
         for i in range(len(self.total_stats)):
             if not trinket_bonus[i] == 0:
-                trinket_stats = pulp.LpVariable('trinket_bonus[' + str(item_id) + ',' + str(i) + ']', 0, cat = 'Integer')
+                trinket_stats = pulp.LpVariable('trinket_bonus[' + str(item_id) + ',' + str(i) + ']', 0)
                 problem += trinket_stats == trinket_bonus[i] * self.used[item] + self.total_stats[i]
                 self.total_stats[i] = trinket_stats

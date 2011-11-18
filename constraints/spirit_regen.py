@@ -1,7 +1,4 @@
-# Spirit Regen = 0.16 * sqrt(int) * spi
-#
-# Basic idea is to approximate sqrt(int) using a piecewise-linear function,
-# and then to approximate sqrt(int) * spi using bilinear filtering.
+# Spirit Regen = 0.016725 * sqrt(int) * spi
 #
 import math
 
@@ -23,51 +20,58 @@ def solve_max (problem, x):
     else:
         return 0
 
+num_segment = 10
 int_min = solve_min(problem, self.total_stats[I['intellect']])
 int_max = solve_max(problem, self.total_stats[I['intellect']])
-int_x = range(int_min, int_max, max(1, (int_max - int_min) / 10))
+int_x = range(int_min, int_max, max(1, (int_max - int_min) / num_segment)) + [ int_max]
 spi_min = solve_min(problem, self.total_stats[I['spirit']])
 spi_max = solve_max(problem, self.total_stats[I['spirit']])
+spi_x = range(spi_min, spi_max, max(1, (spi_max - spi_min) / num_segment)) + [ spi_max]
 
-int_z = map(lambda x: pulp.LpVariable('spirit_regen_int_z[%s]' % x, cat = 'Binary'), int_x)
-int_s = map(lambda x: pulp.LpVariable('spirit_regen_int_s[%s]' % x, 0, 1), int_x)
-int_y = map(lambda x: math.sqrt(x), int_x)
-
-problem += pulp.lpSum(int_z) == 1
+self.spirit_regen = pulp.LpVariable(N('spirit_regen'))
+points = {}
 
 for i in range(len(int_x)):
-    problem += int_s[i] <= int_z[i]
+    for j in range(len(spi_x)):
+        points[(i,j)] = 0.016725 * math.sqrt(int_x[i]) * spi_x[j]
 
-int_xe = pulp.LpAffineExpression()
-int_ye = pulp.LpAffineExpression()
-for i in range(len(int_x)-1):
-    int_xe = int_xe + int_x[i] * int_z[i] + \
-                      (int_x[i+1] - int_x[i]) * int_s[i]
-    int_ye = int_ye + int_y[i] * int_z[i] + \
-                      (int_y[i+1] - int_y[i]) * int_s[i]
+points_var = []
+points_int = []
+points_spi = []
+points_mp5 = []
+points_s = {}
 
-sqrt_int = pulp.LpVariable('spirit_regen_sqrt_int')
+for (i,j) in points.keys():
+    try:
+        base_name = 'points_x[' + str(i) + ',' + str(j) + ']'
 
-problem += int_xe == self.total_stats[I['intellect']]
-problem += int_ye == sqrt_int
+        int0 = int_x[i+0]
+        int1 = int_x[i+1]
+        spi0 = spi_x[j+0]
+        spi1 = spi_x[j+1]
 
-# Note: sqrt_int is now an approximation of sqrt(int)
+        x00 = pulp.LpVariable(base_name + '[0,0]', 0, 1)
+        x01 = pulp.LpVariable(base_name + '[0,1]', 0, 1)
+        x10 = pulp.LpVariable(base_name + '[1,0]', 0, 1)
+        x11 = pulp.LpVariable(base_name + '[1,1]', 0, 1)
 
-spi = self.total_stats[I['spirit']]
-spi_int = pulp.LpVariable('spirit_regen_int_spi', spi_min * min(int_y), spi_max * max(int_y))
+        points_int += [ x00 * int0, x01 * int0, x10 * int1, x11 * int1 ]
+        points_spi += [ x00 * spi0, x01 * spi1, x10 * spi0, x11 * spi1 ]
+        points_mp5 += [ x00 * points[(i,j)], x01 * points[(i,j+1)],
+                        x10 * points[(i+1,j)], x11 * points[(i+1,j+1)] ]
+        points_var += [ x00, x01, x10, x11 ]
 
-# x1 = sqrt_int
-# x2 = spi
-problem += spi_min * sqrt_int + min(int_y) * spi - spi_min * min(int_y) <= spi_int
-problem += spi_int <= spi_min * sqrt_int + max(int_y) * spi - max(int_y) * spi_min
+        points_s[(i,j)] = pulp.LpVariable('points_s[' + str(i) + ',' + str(j) + ']', 0, 1, cat = 'Integer')
+        problem += x00 + x01 + x10 + x11 == points_s[(i,j)]
+    except IndexError:
+        pass
+    except KeyError:
+        pass
 
-problem += spi_max * sqrt_int + max(int_y) * spi - spi_max * max(int_y) <= spi_int
-problem += spi_int <= spi_max * sqrt_int + min(int_y) * spi - min(int_y) * spi_max
-
-# Note: spi_int is now an approximation of sqrt(int) * spi
-
-self.spirit_regen = pulp.LpVariable('spirit_regen', 0)
-
-problem += self.spirit_regen == 0.016725 * spi_int
+problem += pulp.lpSum(points_var) == 1
+problem += pulp.lpSum(points_s.values()) == 1 # Redundant
+problem += pulp.lpSum(points_int) == self.total_stats[I['intellect']]
+problem += pulp.lpSum(points_spi) == self.total_stats[I['spirit']]
+problem += pulp.lpSum(points_mp5) == self.spirit_regen
 
 # Woot, self.spirit_regen is now an approximation of 0.016725 * sqrt(int) * spi!

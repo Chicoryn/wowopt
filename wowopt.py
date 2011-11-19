@@ -300,7 +300,7 @@ class armory_item (armory_base):
         pass
 
     def load_item (self, item_id):
-        doc = self.load_doc('ptr.wowhead.com/item=%d&xml' % (item_id),
+        doc = self.load_doc('www.wowhead.com/item=%d&xml' % (item_id),
                             cache = 'cache/%d.xml' % (item_id))
 
         tree = etree.XML(doc)

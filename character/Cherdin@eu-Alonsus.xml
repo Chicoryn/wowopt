@@ -109,10 +109,7 @@ if choice_items:
     <!-- Mantle of the Cleansing Flame (heroic) -->
     <item>71531</item>
 
-    <!-- Crystal Prison Band (heroic) -->
-    <item>71449</item>
-
-    <!-- Coalwalker Sandals (heroic) -->
-    <item>71447</item>
+	<!-- Eye of Blazing Power (heroic) -->
+	<item>69149</item>
  </items>
 </character>

@@ -23,7 +23,7 @@ Only the GLPK and CoinMP (standalone) backends of pulp-OR has been tested.
 -------
 Running
 -------
-To run wowopt one should use the "run.sh" bash script, which will take care of running the main solver and starting the user interface. The shell script does not take any significant options beyond the character file to optimize:
+To run wowopt one should use the "run.sh" bash script (or "run.bat" if you are on Windows), which will take care of running the main solver and starting the user interface. The shell script does not take any significant options beyond the character file to optimize:
 
     ./run.sh <character file>
 
@@ -33,5 +33,6 @@ The character file is an XML file describing the pieces of available gear, stat 
     * "character/Ecdab@eu-Alonsus.xml": Describes a blood death knight.
     * "character/Kiaclei@eu-Alonsus.xml": Describes a balance druid.
     * "character/HealPriest-T12.xml": Describes the BiS gear from tier 12 for a healing priest.
+	* "character/HealPriest-T13.xml": Describes the BiS gear from tier 13 for a healing priest.
 
 The user interface of wowopt is non-interactive, it presents a table containing each item that is part of the optimal solution together with the best reforge, gems, and enchant available.

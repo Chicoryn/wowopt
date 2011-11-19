@@ -86,6 +86,7 @@ problem += expertise_pen >= self.total_stats[I['expertise']] - expertise_cap
 problem += self.penalty == self.weight[I['expertise']] * expertise_pen
 ]]>
   </additional_constraint>
+  <additional_constraint file="constraints/bonus_procs.py" />
 
   <!-- Any items (by ID) one wish to add to the model. -->
   <items>

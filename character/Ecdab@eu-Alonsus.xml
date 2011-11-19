@@ -76,7 +76,8 @@
 problem += self.penalty >= 1 * self.total_stats[I['parry']] - 1 * self.total_stats[I['dodge']]
 problem += self.penalty >= 1 * self.total_stats[I['dodge']] - 1 * self.total_stats[I['parry']]
 ]]>
-</additional_constraint>
+  </additional_constraint>
+  <additional_constraint file="constraints/bonus_procs.py" />
 
   <!-- Any items (by ID) one wish to add to the model. -->
   <items>

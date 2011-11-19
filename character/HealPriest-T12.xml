@@ -79,7 +79,7 @@
   <additional_constraint file="constraints/bonus_15percent_int.py" />
   <additional_constraint file="constraints/bonus_5percent_int.py" />
   <additional_constraint file="constraints/bonus_3percent_spirit.py" />
-  <additional_constraint file="constraints/bonus_heal_trinket.py" />
+  <additional_constraint file="constraints/bonus_procs.py" />
   <additional_constraint file="constraints/spirit_regen.py" />
   <additional_constraint>
 <![CDATA[

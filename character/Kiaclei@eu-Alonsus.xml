@@ -72,6 +72,7 @@
 problem += self.total_stats[I['hit']] >= 1742
 ]]>
   </additional_constraint>
+  <additional_constraint file="constraints/bonus_procs.py" />
 
   <!-- Any items (by ID) one wish to add to the model. -->
   <items>

@@ -138,8 +138,9 @@ class armory_base:
                 with open(cache, 'r') as fd:
                     body.write(fd.read())
                 fd.close()
-
-                return body.getvalue()
+                
+                if body.getvalue():
+                    return body.getvalue()
             except IOError as e:
                 pass
 
@@ -215,14 +216,9 @@ class enchant (armory_base):
 
         if not tree.xpath('/wowhead/item'):
             raise Exception('%d: No such item' % item_id)
-        if not tree.xpath('/wowhead/item/jsonUse'):
-            raise Exception('%d: Not an usable item' % item_id)
 
         wowhead_json = tree.xpath('/wowhead/item/json')[0].text
-        wowhead_jsonUse = tree.xpath('/wowhead/item/jsonUse')[0].text
-
         info = json.loads('{' + wowhead_json + '}')
-        use = json.loads('{' + wowhead_jsonUse + '}')
 
         self.name = info['name'][1:]
         self.id = item_id
@@ -231,9 +227,14 @@ class enchant (armory_base):
             raise Exception('%s (%d): Not an enchant' % (self.name, item_id))
 
         stats = dict()
-        for a in self.equipT.keys():
-            if self.equipT[a] in use.keys():
-                stats[a] = use[self.equipT[a]]
+        if tree.xpath('/wowhead/item/jsonUse'):
+            wowhead_jsonUse = tree.xpath('/wowhead/item/jsonUse')[0].text
+            use = json.loads('{' + wowhead_jsonUse + '}')
+
+            for a in self.equipT.keys():
+                if self.equipT[a] in use.keys():
+                    stats[a] = use[self.equipT[a]]
+
         self.stats = make_stats(stats)
 
 class armory_character (armory_base):
@@ -480,7 +481,12 @@ class item (armory_item):
                             # Trinket
                             12: [ ],
                             # One-handed (weapon)
-                            13: [ ],
+                            13: [ enchant(52774), # Power Torrent
+                                  enchant(52761), # Heartsong
+                                  enchant(52776), # Landslide
+                                  enchant(52760), # Hurricane
+                                  enchant(52775), # Windwalk
+                                ],
                             # Ranged (Wand)
                             15: [ ],
                             # Back
@@ -490,14 +496,30 @@ class item (armory_item):
                                   enchant(52767), # Protection
                                 ],
                             # Two-handed (weapon)
-                            17: [ ],
+                            17: [ enchant(52774), # Power Torrent
+                                  enchant(52761), # Heartsong
+                                  enchant(52776), # Landslide
+                                  enchant(52760), # Hurricane
+                                  enchant(68134), # Mighty Agility
+                                  enchant(52775), # Windwalk
+                                ],
                             # Off-hand
                             23: [ enchant(52768) # Superior Intellect
                                 ],
                             # Main-hand (weapon)
-                            21: [ ],
+                            21: [ enchant(52774), # Power Torrent
+                                  enchant(52761), # Heartsong
+                                  enchant(52776), # Landslide
+                                  enchant(52760), # Hurricane
+                                  enchant(52775), # Windwalk
+                                ],
                             # Off-hand (weapon)
-                            22: [ ],
+                            22: [ enchant(52774), # Power Torrent
+                                  enchant(52761), # Heartsong
+                                  enchant(52776), # Landslide
+                                  enchant(52760), # Hurricane
+                                  enchant(52775), # Windwalk
+                                ],
                             # Ranged (weapon)
                             25: [ ],
                             # Relic
